@@ -1,6 +1,8 @@
 package trainticket;
 
-public class SingleTicket extends Ticket{
+import java.io.Serializable;
+
+public class SingleTicket extends Ticket implements Serializable {
     private int rides; // hanyszor hasznalható
 
     public SingleTicket(Train t1, int seatnumber, boolean discount, TrainRoute route) {

@@ -1,6 +1,8 @@
 package trainticket;
 
-public abstract class Ticket {
+import java.io.Serializable;
+
+public abstract class Ticket implements Serializable {
     protected Train t1;
     protected int seatnumber;
     protected boolean discount;
@@ -22,7 +24,7 @@ public abstract class Ticket {
     @Override
     public String toString() {
         return "Jegy adatai: \n"
-                + "vonatszam=" + t1.getTrainid() + ",kocsiszam=" + t1.getVagonid() + ",hely=" + t1.getSeatnumber() + "\n"
+                + "vonatszam=" + t1.getTrainid() + ",kocsiszam=" + t1.getVagoncount() + ",hely=" + t1.getSeatnumber() + "\n"
                 + "ar=" + getPrice() + "\n"
                 + "indulasi allomas=" + route.getArrivalstation() + ", indulasi ido=" + route.getArrivaltime() + "\n"
                 + "erkezesi allomas=" + route.getDeparturestation() + ", erkezesi ido=" + route.getDeparturetime() + "\n";

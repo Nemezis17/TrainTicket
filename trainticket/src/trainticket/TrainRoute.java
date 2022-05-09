@@ -1,6 +1,8 @@
 package trainticket;
 
-public class TrainRoute {
+import java.io.Serializable;
+
+public class TrainRoute implements Serializable {
     private String departurestation; // indulási állomás
     private String departuretime; // indulási idõ
     private String arrivalstation; // érkezési állomás

@@ -1,15 +1,17 @@
 package trainticket;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
-public class Train {
+public class Train implements Serializable {
     private int trainid; // vonatszám
-    private int vagonid; // kocsiszám
+    private int vagoncount; // kocsiszám
     private int seatnumber; // hely
     private String from; // indulási állomás
     private String to; // érkezési állomás
+    private int stationdistance; // távolság az állomások között
+    private final List<TrainRoute> schelude = new ArrayList<TrainRoute>(); // menetrend
 
     public int getStationdistance() {
         return stationdistance;
@@ -23,40 +25,40 @@ public class Train {
         return schelude;
     }
 
-    public void setSchelude(List<TrainRoute> schelude) {
-        this.schelude = schelude;
-    }
-
-    private int stationdistance; // távolság az állomások között
-    private List<TrainRoute> schelude = new ArrayList<TrainRoute>(); // menetrend
 
     public void addRoute(TrainRoute r1) {
         // ha rossz az indulo allomas
-        if(!r1.getDeparturestation().equals(from)||r1.getDeparturestation().equals(to)){
+        if(!r1.getDeparturestation().equals(from)||!r1.getDeparturestation().equals(to)){
+            System.out.println("Ervenytelen kiindulo allomas");
             return;
         }
         // ha rossz az erkezo allomas
         if(!r1.getArrivalstation().equals(from)||!r1.getArrivalstation().equals(to)){
+            System.out.println("Ervenytelen vegallomas allomas");
             return;
         }
         // ha ugyanaz az indulo es erkezo allomas
         if(r1.getDeparturestation().equals(r1.getArrivalstation())){
+            System.out.println("Nem lehet ugyanaz a kiindulo es a vegallomas");
             return;
         }
         schelude.add(r1);
+        System.out.println("Uj jarat hozzaadva");
     }
 
     public void removeRoute(int id) {
         // ha tul nagy az id akkor ne legyen tulindexeles
         if(id>=schelude.size()){
+            System.out.println("Tul nagy index");
             return;
         }
         schelude.remove(id);
+        System.out.println("Jarat torolve");
     }
 
-    public Train(int trainid, int vagonid, int seatnumber, String from, String to, int stationdistance) {
+    public Train(int trainid, int vagoncount, int seatnumber, String from, String to, int stationdistance) {
         this.trainid = trainid;
-        this.vagonid = vagonid;
+        this.vagoncount = vagoncount;
         this.seatnumber = seatnumber;
         this.from = from;
         this.to = to;
@@ -65,12 +67,7 @@ public class Train {
 
     @Override
     public String toString() {
-        String adatok = "vonatid=" + trainid + "," + "vagonid=" + vagonid + "ulohely=" + seatnumber + "\n";
-        adatok+="menetrend=";
-        for(int i=0;i<schelude.size();i++){
-            adatok+="\n\t"+schelude.get(i).toString();
-        }
-        return adatok;
+        return  "vonatid=" + trainid + ", kocsik szama=" + vagoncount + ", ulohelyek szama=" + seatnumber + ", egyik vegallomas=" + from + ", masik vegallomas=" + to + "allomasok kozotti tavolsag=" + stationdistance;
     }
 
     public int getTrainid() {
@@ -81,12 +78,12 @@ public class Train {
         this.trainid = trainid;
     }
 
-    public int getVagonid() {
-        return vagonid;
+    public int getVagoncount() {
+        return vagoncount;
     }
 
-    public void setVagonid(int vagonid) {
-        this.vagonid = vagonid;
+    public void setVagoncount(int vagoncount) {
+        this.vagoncount = vagoncount;
     }
 
     public int getSeatnumber() {

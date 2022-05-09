@@ -1,6 +1,8 @@
 package trainticket;
 
-public class ReturnTicket extends Ticket{
+import java.io.Serializable;
+
+public class ReturnTicket extends Ticket implements Serializable {
     private int rides;
     public ReturnTicket(Train t1, int seatnumber, boolean discount, TrainRoute route) {
         super(t1, seatnumber, discount, route);
