@@ -43,4 +43,9 @@ public class TrainRoute {
     public void setArrivaltime(String arrivaltime) {
         this.arrivaltime = arrivaltime;
     }
+
+    @Override
+    public String toString() {
+        return "- " + getArrivalstation() + "," + getArrivaltime() + " - " + getDeparturestation() + "," + getDeparturetime();
+    }
 }
